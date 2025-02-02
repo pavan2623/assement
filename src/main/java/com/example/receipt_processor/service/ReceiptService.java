@@ -51,8 +51,8 @@ public class ReceiptService {
         }
 
 
-        BigDecimal quarter = new BigDecimal("0.25");
-        if (total.remainder(quarter).compareTo(BigDecimal.ZERO) == 0) {
+        BigDecimal q = new BigDecimal("0.25");
+        if (total.remainder(q).compareTo(BigDecimal.ZERO) == 0) {
             points += 25;
         }
 
@@ -66,16 +66,11 @@ public class ReceiptService {
             if (description.length() % 3 == 0) {
                 BigDecimal price = new BigDecimal(item.getPrice());
                 BigDecimal bonus = price.multiply(new BigDecimal("0.2"));
-                // Round up to nearest whole number:
                 bonus = bonus.setScale(0, RoundingMode.CEILING);
                 points += bonus.intValue();
             }
         }
 
-
-        if (total.compareTo(new BigDecimal("10.00")) > 0) {
-            points += 5;
-        }
 
 
         LocalDate purchaseDate = LocalDate.parse(receipt.getPurchaseDate());
@@ -85,8 +80,8 @@ public class ReceiptService {
 
 
         LocalTime purchaseTime = LocalTime.parse(receipt.getPurchaseTime());
-        LocalTime start = LocalTime.of(14, 0); // 2:00pm
-        LocalTime end = LocalTime.of(16, 0);   // 4:00pm
+        LocalTime start = LocalTime.of(14, 0);
+        LocalTime end = LocalTime.of(16, 0);
         if (purchaseTime.compareTo(start) >= 0 && purchaseTime.compareTo(end) < 0) {
             points += 10;
         }

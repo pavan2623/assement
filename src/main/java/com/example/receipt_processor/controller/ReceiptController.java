@@ -22,7 +22,7 @@ public class ReceiptController {
             String id = receiptService.processReceipt(receipt);
             return ResponseEntity.ok(Collections.singletonMap("id", id));
         } catch (Exception e) {
-            // Return a 400 Bad Request with a message containing "Please verify input."
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Collections.singletonMap("error", "Please verify input. " + e.getMessage()));
         }
